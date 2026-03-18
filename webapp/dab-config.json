@@ -1,0 +1,508 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "//": "⚠️ DEVELOPMENT CONFIGURATION - NOT FOR PRODUCTION",
+  "//": "This configuration uses simplified authentication for demo purposes:",
+  "//": "  - authentication.provider = 'Simulator' (bypasses JWT validation)",
+  "//": "  - mode = 'development' (disables production safeguards)",
+  "//": "  - CORS allows all origins (insecure)",
+  "//": "  - Permissions use 'anonymous' role (no authorization)",
+  "//": "",
+  "//": "For production deployment, see:",
+  "//": "  - dab-config.production.json (example configuration)",
+  "//": "  - SECURITY.md (complete setup guide)",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "data-source-files": [
+    "dab-config.replica.json",
+    "dab-config.analytics.json"
+  ],
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": true
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": ["*"],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "Simulator"
+      },
+      "mode": "development"
+    }
+  },
+  "entities": {
+    "Branch": {
+      "source": {
+        "object": "Branches",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Branch",
+          "plural": "Branches"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/branches"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "Professional": {
+      "source": {
+        "object": "TaxProfessionals",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Professional",
+          "plural": "Professionals"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/professionals"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "Customer": {
+      "source": {
+        "object": "Customers",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Customer",
+          "plural": "Customers"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/customers"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "TaxReturn": {
+      "source": {
+        "object": "TaxReturns",
+        "type": "table",
+        "key-fields": ["ReturnId"]
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "TaxReturn",
+          "plural": "TaxReturns"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/returns"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "TaxScenario": {
+      "source": {
+        "object": "TaxScenarios",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": false,
+        "type": {
+          "singular": "TaxScenario",
+          "plural": "TaxScenarios"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/scenarios"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "Knowledge": {
+      "source": {
+        "object": "TaxKnowledgeBase",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Knowledge",
+          "plural": "KnowledgeItems"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/knowledge"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["*"]
+        }
+      ]
+    },
+    "GetCachedSummary": {
+      "source": {
+        "object": "GetCachedCaseSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "ScenarioId": "scenarioId"
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/case-summary-cache",
+        "methods": ["get"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "SaveCachedSummary": {
+      "source": {
+        "object": "SaveCachedCaseSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "ScenarioId": "scenarioId",
+          "Summary": "summary",
+          "Model": "model"
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/case-summary-cache-save",
+        "methods": ["post"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "HyperscaleResourceStats": {
+      "source": {
+        "object": "dbo.GetHyperscaleResourceStats",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/hyperscale-stats-primary",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "AskTaxAssistant": {
+      "source": {
+        "object": "AskTaxAssistant",
+        "type": "stored-procedure",
+        "parameters": {
+          "Question": "",
+          "Context": "",
+          "TopK": 3
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/ai-assistant",
+        "methods": ["post"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "AskTaxQuestion": {
+      "source": {
+        "object": "AskTaxQuestion",
+        "type": "stored-procedure",
+        "parameters": {
+          "Question": "",
+          "TopK": 5
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/ai-ask",
+        "methods": ["post"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "SearchSimilarCases": {
+      "source": {
+        "object": "SearchSimilarCases",
+        "type": "stored-procedure",
+        "parameters": {
+          "Query": "",
+          "FilingStatus": "",
+          "TopK": 10
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/search-cases",
+        "methods": ["post"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "SubmitTaxReturn": {
+      "source": {
+        "object": "dbo.SubmitTaxReturn",
+        "type": "stored-procedure",
+        "parameters": {
+          "ReturnId": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/submit-return",
+        "methods": ["post"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "SecurityOverview": {
+      "source": {
+        "object": "dbo.SecurityDemo_Overview",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/security-overview",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    },
+    "SecurityRLS": {
+      "source": {
+        "object": "dbo.SecurityDemo_RLS",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/security-rls",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    },
+    "SecurityDDM": {
+      "source": {
+        "object": "dbo.SecurityDemo_DDM",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/security-ddm",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    },
+    "SecurityLedger": {
+      "source": {
+        "object": "dbo.SecurityDemo_LedgerInfo",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/security-ledger",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    },
+    "SecurityClassification": {
+      "source": {
+        "object": "dbo.SecurityDemo_Classification",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/security-classification",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    },
+    "LogAIInteraction": {
+      "source": {
+        "object": "dbo.LogAIInteraction",
+        "type": "stored-procedure",
+        "parameters": {
+          "InteractionType": "",
+          "UserRole": "anonymous",
+          "UserId": "",
+          "BranchId": 0,
+          "CustomerId": 0,
+          "PromptText": "",
+          "ModelName": "",
+          "ExternalEndpoint": "",
+          "TokensInput": 0,
+          "TokensOutput": 0,
+          "ResponseSummary": "",
+          "ResultCount": 0,
+          "SimilarityScoreAvg": 0,
+          "LatencyMs": 0,
+          "HttpStatusCode": 0,
+          "ErrorMessage": "",
+          "IsSuccess": true,
+          "SessionId": ""
+        }
+      },
+      "graphql": { "enabled": false },
+      "rest": {
+        "enabled": true,
+        "path": "/log-ai-interaction",
+        "methods": ["POST"]
+      },
+      "permissions": [{ "role": "anonymous", "actions": ["execute"] }]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Zava Tax Load Simulator
+# For demonstrating Hyperscale high-throughput log ingestion
+
+# Database connectivity (Microsoft mssql-python - no ODBC driver required)
+mssql-python>=1.3.0
+azure-identity>=1.15.0
+faker>=22.0.0
+numpy>=1.26.0
+aiohttp>=3.9.0
+asyncio>=3.4.3
+python-dotenv>=1.0.0
+structlog>=24.1.0
+orjson>=3.9.0
+click>=8.1.0
+tenacity>=8.2.0

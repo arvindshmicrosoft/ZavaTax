@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="2" dy="3" stdDeviation="6" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrG" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16A34A"/>
+    </marker>
+    <marker id="arrA" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrB" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748B"/>
+    </marker>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- ═══════ WEB APP — centered at x=280, y=440 ═══════ -->
+  <g transform="translate(280,440)" filter="url(#shadow)">
+    <!-- Monitor -->
+    <rect x="-110" y="-140" width="220" height="155" rx="14" fill="#2563EB"/>
+    <rect x="-90" y="-120" width="180" height="110" rx="6" fill="#1E40AF"/>
+    <!-- Screen lines -->
+    <line x1="-60" y1="-95" x2="60" y2="-95" stroke="#93C5FD" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-60" y1="-72" x2="35" y2="-72" stroke="#60A5FA" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-60" y1="-49" x2="50" y2="-49" stroke="#93C5FD" stroke-width="3" stroke-linecap="round"/>
+    <!-- Stand -->
+    <rect x="-22" y="15" width="44" height="18" rx="4" fill="#2563EB"/>
+    <rect x="-45" y="33" width="90" height="10" rx="5" fill="#2563EB"/>
+  </g>
+  <text x="280" y="540" text-anchor="middle" font-size="28" font-weight="700" fill="#1E3A5F">Web App</text>
+  <text x="280" y="572" text-anchor="middle" font-size="17" fill="#64748B">React · Vite</text>
+  <text x="280" y="600" text-anchor="middle" font-size="17" fill="#64748B">CQRS Router</text>
+
+  <!-- 5 persona badges below -->
+  <g transform="translate(280,680)">
+    <rect x="-165" y="0" width="330" height="105" rx="14" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+    <text x="0" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#2563EB">5 Personas</text>
+    <text x="0" y="55" text-anchor="middle" font-size="14" fill="#64748B">Tax Filer · Professional · Manager</text>
+    <text x="0" y="78" text-anchor="middle" font-size="14" fill="#64748B">Executive · DevOps</text>
+  </g>
+
+  <!-- ═══════ DAB — centered at x=700, y=440 ═══════ -->
+  <g transform="translate(700,440)" filter="url(#shadow)">
+    <!-- Hexagon -->
+    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" fill="#059669"/>
+    <circle cx="0" cy="0" r="50" fill="#047857" stroke="#6EE7B7" stroke-width="2.5"/>
+    <text x="0" y="7" text-anchor="middle" font-size="26" font-weight="700" fill="#FFF">API</text>
+  </g>
+  <text x="700" y="592" text-anchor="middle" font-size="28" font-weight="700" fill="#1E3A5F">Data API Builder</text>
+  <text x="700" y="624" text-anchor="middle" font-size="17" fill="#64748B">REST + GraphQL</text>
+
+  <!-- Data source badges -->
+  <g transform="translate(700,690)">
+    <rect x="-130" y="0" width="260" height="90" rx="12" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="2"/>
+    <circle cx="-95" cy="30" r="10" fill="#FDE047"/>
+    <text x="-75" y="35" font-size="14" font-weight="600" fill="#065F46">Primary (R/W)</text>
+    <circle cx="-95" cy="62" r="10" fill="#F59E0B"/>
+    <text x="-75" y="67" font-size="14" font-weight="600" fill="#065F46">Read-Only</text>
+  </g>
+
+  <!-- ═══════ HYPERSCALE boundary ═══════ -->
+  <rect x="1000" y="120" width="830" height="840" rx="28" fill="none" stroke="#7C3AED" stroke-width="3.5" stroke-dasharray="16 8"/>
+  <text x="1415" y="190" text-anchor="middle" font-size="24" font-weight="700" fill="#7C3AED">Azure SQL DB Hyperscale</text>
+
+  <!-- Primary Replica — DB cylinder at x=1200 -->
+  <g transform="translate(1200,460)">
+    <!-- Cylinder -->
+    <ellipse cx="0" cy="-90" rx="95" ry="30" fill="#9333EA" filter="url(#shadow)"/>
+    <rect x="-95" y="-90" width="190" height="180" fill="#7C3AED"/>
+    <ellipse cx="0" cy="90" rx="95" ry="30" fill="#6D28D9"/>
+    <!-- Side edges -->
+    <line x1="-95" y1="-90" x2="-95" y2="90" stroke="#6D28D9" stroke-width="2"/>
+    <line x1="95" y1="-90" x2="95" y2="90" stroke="#6D28D9" stroke-width="2"/>
+    <!-- Inner label -->
+    <text x="0" y="-15" text-anchor="middle" font-size="20" font-weight="600" fill="#FFF">R / W</text>
+    <text x="0" y="15" text-anchor="middle" font-size="14" fill="#EDE9FE">VECTOR</text>
+    <text x="0" y="40" text-anchor="middle" font-size="14" fill="#EDE9FE">DiskANN</text>
+  </g>
+  <text x="1200" y="615" text-anchor="middle" font-size="26" font-weight="700" fill="#5B21B6">Primary</text>
+
+  <!-- HA Replica — DB cylinder at x=1630 -->
+  <g transform="translate(1630,460)">
+    <ellipse cx="0" cy="-90" rx="95" ry="30" fill="#A78BFA" filter="url(#shadow)"/>
+    <rect x="-95" y="-90" width="190" height="180" fill="#8B5CF6"/>
+    <ellipse cx="0" cy="90" rx="95" ry="30" fill="#7C3AED"/>
+    <line x1="-95" y1="-90" x2="-95" y2="90" stroke="#7C3AED" stroke-width="2"/>
+    <line x1="95" y1="-90" x2="95" y2="90" stroke="#7C3AED" stroke-width="2"/>
+    <text x="0" y="-15" text-anchor="middle" font-size="20" font-weight="600" fill="#FFF">Read</text>
+    <text x="0" y="15" text-anchor="middle" font-size="14" fill="#EDE9FE">Zone</text>
+    <text x="0" y="40" text-anchor="middle" font-size="14" fill="#EDE9FE">Redundant</text>
+  </g>
+  <text x="1630" y="615" text-anchor="middle" font-size="26" font-weight="700" fill="#5B21B6">HA Replica</text>
+
+  <!-- ═══════ ARROWS ═══════ -->
+  <!-- Web App → DAB -->
+  <line x1="410" y1="430" x2="583" y2="430" stroke="#64748B" stroke-width="3.5" marker-end="url(#arrB)"/>
+  <text x="497" y="418" text-anchor="middle" font-size="15" font-weight="600" fill="#475569">REST / JSON</text>
+
+  <!-- DAB → Primary (R/W) -->
+  <line x1="815" y1="400" x2="1093" y2="400" stroke="#16A34A" stroke-width="4" marker-end="url(#arrG)"/>
+  <rect x="908" y="375" width="55" height="26" rx="6" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="936" y="394" text-anchor="middle" font-size="14" font-weight="700" fill="#16A34A">R/W</text>
+
+  <!-- DAB → HA Replica (Read-Only) -->
+  <line x1="815" y1="480" x2="900" y2="480" stroke="#F59E0B" stroke-width="4"/>
+  <line x1="900" y1="480" x2="900" y2="810" stroke="#F59E0B" stroke-width="4"/>
+  <line x1="900" y1="810" x2="1630" y2="810" stroke="#F59E0B" stroke-width="4"/>
+  <line x1="1630" y1="810" x2="1630" y2="570" stroke="#F59E0B" stroke-width="4" marker-end="url(#arrA)"/>
+  <rect x="1200" y="788" width="100" height="26" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="1250" y="807" text-anchor="middle" font-size="14" font-weight="700" fill="#D97706">Read-Only</text>
+</svg>

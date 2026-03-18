@@ -1,0 +1,35 @@
+# Zava Tax Data Preparation Dependencies
+# Install with: pip install -r requirements.txt
+
+# Web scraping and parsing
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# PDF processing (backup if HTML not available)
+pymupdf>=1.23.0
+
+# Azure OpenAI for embeddings
+openai>=1.12.0
+
+# Azure Identity for managed identity authentication
+azure-identity>=1.15.0
+
+# Data generation
+faker>=22.0.0
+
+# Data processing
+pandas>=2.1.0
+numpy>=1.26.0
+
+# Progress bars
+tqdm>=4.66.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Database connectivity (Microsoft mssql-python - no ODBC driver required)
+mssql-python>=1.3.0
+
+# JSON handling
+orjson>=3.9.0

@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.env.production
+.env.development
+*.local
+.DS_Store
+
+# DAB logs (contain Azure deployment details)
+dab-logs*/
+dab-logs*.zip

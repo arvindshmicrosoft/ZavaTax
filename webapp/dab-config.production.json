@@ -1,0 +1,274 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "//": "⚠️ PRODUCTION CONFIGURATION EXAMPLE",
+  "//": "This file demonstrates the security changes required for production deployment.",
+  "//": "Key differences from dab-config.json (development):",
+  "//": "  1. authentication.provider = 'AzureAD' (not 'Simulator')",
+  "//": "  2. mode = 'production' (not 'development')",
+  "//": "  3. CORS restricted to specific domain (not '*')",
+  "//": "  4. Permissions use roles and claims (not 'anonymous')",
+  "//": "",
+  "//": "See SECURITY.md for complete setup guide.",
+  
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  
+  "data-source-files": [
+    "dab-config.replica.json",
+    "dab-config.analytics.json"
+  ],
+  
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": true
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": false
+    },
+    "host": {
+      "cors": {
+        "//": "✅ PRODUCTION: Restrict to specific domain(s)",
+        "origins": ["https://zavatax.com", "https://www.zavatax.com"],
+        "allow-credentials": true
+      },
+      "authentication": {
+        "//": "✅ PRODUCTION: Azure AD validates JWT signatures",
+        "provider": "AzureAD",
+        "jwt": {
+          "//": "Audience: Must match the API scope configured in Azure AD app registration",
+          "audience": "api://12345678-1234-1234-1234-123456789abc",
+          "//": "Issuer: Azure AD tenant issuer URL",
+          "issuer": "https://login.microsoftonline.com/87654321-4321-4321-4321-987654321cba/v2.0"
+        }
+      },
+      "mode": "production"
+    }
+  },
+  
+  "entities": {
+    "TaxReturn": {
+      "source": {
+        "object": "TaxReturns",
+        "type": "table",
+        "key-fields": ["ReturnId"]
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "TaxReturn",
+          "plural": "TaxReturns"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/tax-returns"
+      },
+      "permissions": [
+        {
+          "//": "Tax filers can only see their own returns",
+          "role": "TaxFiler",
+          "actions": [
+            {
+              "action": "read",
+              "policy": {
+                "database": "@claims.oid = @item.CustomerId"
+              }
+            },
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.oid = @item.CustomerId"
+              }
+            },
+            {
+              "action": "update",
+              "policy": {
+                "database": "@claims.oid = @item.CustomerId"
+              }
+            }
+          ]
+        },
+        {
+          "//": "Tax professionals can see all returns for their assigned clients",
+          "role": "TaxProfessional",
+          "actions": [
+            {
+              "action": "*",
+              "policy": {
+                "database": "@claims.professional_id = @item.ProfessionalId"
+              }
+            }
+          ]
+        },
+        {
+          "//": "Branch managers can see all returns for their branch",
+          "role": "BranchManager",
+          "actions": [
+            {
+              "action": "read",
+              "policy": {
+                "database": "@claims.branch_id = @item.BranchId"
+              }
+            }
+          ]
+        },
+        {
+          "//": "Executives have read-only access to all returns (for analytics)",
+          "role": "Executive",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        },
+        {
+          "//": "DevOps engineers have read-only access (monitoring only)",
+          "role": "DevOps",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    
+    "Customer": {
+      "source": {
+        "object": "Customers",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Customer",
+          "plural": "Customers"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/customers"
+      },
+      "permissions": [
+        {
+          "role": "TaxFiler",
+          "actions": [
+            {
+              "action": "read",
+              "policy": {
+                "database": "@claims.oid = @item.CustomerId"
+              }
+            }
+          ]
+        },
+        {
+          "role": "TaxProfessional",
+          "actions": [
+            {
+              "action": "read",
+              "policy": {
+                "//": "Professionals see customers assigned to them",
+                "database": "@claims.professional_id = @item.ProfessionalId"
+              }
+            }
+          ]
+        },
+        {
+          "role": "BranchManager",
+          "actions": [
+            {
+              "action": "read",
+              "policy": {
+                "database": "@claims.branch_id = @item.BranchId"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Executive",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    
+    "Branch": {
+      "source": {
+        "object": "Branches",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "Branch",
+          "plural": "Branches"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/branches"
+      },
+      "permissions": [
+        {
+          "//": "All authenticated users can view branch information",
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        },
+        {
+          "role": "BranchManager",
+          "actions": [
+            {
+              "action": "*",
+              "policy": {
+                "database": "@claims.branch_id = @item.BranchId"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Executive",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ]
+    },
+    
+    "//": "Additional entities would follow similar patterns...",
+    "//": "",
+    "//": "KEY CONCEPTS:",
+    "//": "- @claims.oid: Azure AD Object ID from JWT token",
+    "//": "- @claims.professional_id: Custom claim added during token issuance",
+    "//": "- @claims.branch_id: Custom claim added during token issuance",
+    "//": "- @item.CustomerId: Database column value being accessed",
+    "//": "- policy.database: SQL-like filter expression",
+    "//": "",
+    "//": "CUSTOM CLAIMS SETUP:",
+    "//": "Custom claims (professional_id, branch_id) can be added to JWT tokens via:",
+    "//": "1. Azure AD B2C user attributes",
+    "//": "2. Claims mapping in app registration",
+    "//": "3. Azure Functions claims augmentation",
+    "//": "4. API Management policies",
+    "//": "",
+    "//": "See SECURITY.md section 'How do we map Azure AD users to database entities'",
+    "//": "for detailed implementation options."
+  }
+}

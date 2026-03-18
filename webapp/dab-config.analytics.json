@@ -1,0 +1,421 @@
+{
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('DATABASE_CONNECTION_STRING_ANALYTICS')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "entities": {
+    "BranchAnalytics": {
+      "source": {
+        "object": "dbo.GetBranchAnalytics",
+        "type": "stored-procedure",
+        "parameters": {
+          "BranchId": 1,
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-branch",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "BranchLeaderboard": {
+      "source": {
+        "object": "dbo.GetBranchLeaderboard",
+        "type": "stored-procedure",
+        "parameters": {
+          "BranchId": 1,
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-leaderboard",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ExecutiveKPIs": {
+      "source": {
+        "object": "dbo.GetExecutiveKPIs",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-executive-kpis",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "TopBranches": {
+      "source": {
+        "object": "dbo.GetTopBranches",
+        "type": "stored-procedure",
+        "parameters": {
+          "TopN": 10,
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-top-branches",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "FilingStatusDistribution": {
+      "source": {
+        "object": "dbo.GetFilingStatusDistribution",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-filing-status",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ReturnsByYear": {
+      "source": {
+        "object": "dbo.GetReturnsByYear",
+        "type": "stored-procedure"
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-returns-by-year",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ReplicaInfo": {
+      "source": {
+        "object": "dbo.GetReplicaInfo",
+        "type": "stored-procedure"
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-replica-info",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "HyperscaleResourceStatsAnalytics": {
+      "source": {
+        "object": "dbo.GetHyperscaleResourceStats",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/hyperscale-stats-analytics",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "EFileStatusSummary": {
+      "source": {
+        "object": "dbo.GetEFileStatusSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-efile-status",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "W2Summary": {
+      "source": {
+        "object": "dbo.GetW2Summary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0,
+          "BranchId": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-w2-summary",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "Form1099Summary": {
+      "source": {
+        "object": "dbo.GetForm1099Summary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-1099-summary",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "CapitalGainsSummary": {
+      "source": {
+        "object": "dbo.GetCapitalGainsSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-capital-gains",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ScheduleCSummary": {
+      "source": {
+        "object": "dbo.GetScheduleCSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-schedule-c",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "FilingDetailOverview": {
+      "source": {
+        "object": "dbo.GetFilingDetailOverview",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-filing-overview",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "StateTaxSummary": {
+      "source": {
+        "object": "dbo.GetStateTaxSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-state-tax",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ScheduleESummary": {
+      "source": {
+        "object": "dbo.GetScheduleESummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-schedule-e",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "ScheduleBSummary": {
+      "source": {
+        "object": "dbo.GetScheduleBSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-schedule-b",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    },
+    "DocumentSummary": {
+      "source": {
+        "object": "dbo.GetDocumentSummary",
+        "type": "stored-procedure",
+        "parameters": {
+          "TaxYear": 0
+        }
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/analytics-documents",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        }
+      ]
+    }
+  }
+}

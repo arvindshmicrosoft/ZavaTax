@@ -1,0 +1,227 @@
+{
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('DATABASE_CONNECTION_STRING_READONLY')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "entities": {
+    "BranchRead": {
+      "source": {
+        "object": "Branches",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "BranchRead",
+          "plural": "BranchesRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/branches-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "ProfessionalRead": {
+      "source": {
+        "object": "TaxProfessionals",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "ProfessionalRead",
+          "plural": "ProfessionalsRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/professionals-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "CustomerRead": {
+      "source": {
+        "object": "Customers",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "CustomerRead",
+          "plural": "CustomersRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/customers-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "TaxReturnRead": {
+      "source": {
+        "object": "TaxReturns",
+        "type": "table",
+        "key-fields": ["ReturnId"]
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "TaxReturnRead",
+          "plural": "TaxReturnsRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/returns-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "TaxScenarioRead": {
+      "source": {
+        "object": "TaxScenarios",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": false,
+        "type": {
+          "singular": "TaxScenarioRead",
+          "plural": "TaxScenariosRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/scenarios-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "KnowledgeRead": {
+      "source": {
+        "object": "TaxKnowledgeBase",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "KnowledgeRead",
+          "plural": "KnowledgeItemsRead"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/knowledge-read"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "BranchPerformance": {
+      "source": {
+        "object": "vw_BranchPerformanceRealtime",
+        "type": "view",
+        "key-fields": ["BranchId"]
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "BranchPerformance",
+          "plural": "BranchPerformanceMetrics"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/branch-performance"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["read"]
+        }
+      ]
+    },
+    "HyperscaleResourceStatsRead": {
+      "source": {
+        "object": "dbo.GetHyperscaleResourceStats",
+        "type": "stored-procedure",
+        "parameters": {}
+      },
+      "graphql": {
+        "enabled": false
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/hyperscale-stats-read",
+        "methods": ["POST"]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["execute"]
+        },
+        {
+          "role": "authenticated",
+          "actions": ["execute"]
+        }
+      ]
+    }
+  }
+}
