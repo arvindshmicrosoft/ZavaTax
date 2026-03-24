@@ -1031,7 +1031,7 @@ if ($DeployOpenAI) {
 
                 # Offer interactive fallback to gpt-4o
                 $fallbackModel = "gpt-4o"
-                $fallbackVersion = "2024-08-06"
+                $fallbackVersion = "2024-11-20"
                 Write-Host ""
                 $response = Read-Host "Would you like to fall back to '$fallbackModel' (version $fallbackVersion) instead? [Y/n]"
                 if ($response -match '^(y|yes)?$') {
