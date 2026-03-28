@@ -99,7 +99,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Loads existing return data and renders shared `NewReturnForm` in edit mode
 - On success navigates to `/filer/returns`
 
-### 2.7 NewReturnForm (Shared Component — ~1,263 lines)
+### 2.7 NewReturnForm (Shared Component)
 
 - **Data**: `api.checkExistingReturn()` (validation), `api.createTaxReturn()` (mutation), `api.askTaxAssistant()` (embedded AI)
 - **6-step wizard** with visual progress bar:
@@ -122,7 +122,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Two-column: "Needs Attention" list (amber, unfiled clients or high-owed returns) + "Recently Completed"
 - Sidebar: Quick Actions (Clients, Similar Cases, KB), 2025 Summary, Key Dates (hardcoded deadlines)
 
-### 2.9 Professional — Clients (~695 lines)
+### 2.9 Professional — Clients
 
 - **Data**: `api.getCustomers()`, `api.getTaxReturns()`, `api.createCustomer()`, `api.askTaxAssistant()`
 - Search bar with live client filtering
@@ -132,7 +132,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - **Return Detail Modal**: income/deductions/tax breakdown + AI Analysis section (calls `askTaxAssistant` for return analysis)
 - **New Return Modal**: renders shared `NewReturnForm` in a modal
 
-### 2.10 Professional — SimilarCases (~588 lines)
+### 2.10 Professional — SimilarCases
 
 - **Data**: `api.searchSimilarCases()`, `api.getCachedCaseSummary()`, `api.askTaxAssistant()`, `api.saveCachedCaseSummary()`
 - Textarea search + filing status filter dropdown
@@ -141,14 +141,14 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Cache-first pattern: check cache → if miss, call LLM → save to cache
 - "Regenerate analysis" button; cache hit indicator with green badge
 
-### 2.11 Professional — KnowledgeBase (~245 lines)
+### 2.11 Professional — KnowledgeBase
 
 - **Data**: `api.askTaxQuestion()` (vector search)
 - Search bar with results showing title, content preview, category badge, relevance %
 - **Article Detail Modal**: full content, reference metadata
 - Empty state: 6 browsable category buttons (hardcoded counts), 5 popular article links (trigger searches)
 
-### 2.12 Branch Manager — Dashboard (~232 lines)
+### 2.12 Branch Manager — Dashboard
 
 - **Data**: `api.getBranchAnalytics(1)`, `api.getBranchLeaderboard(1)`, `api.getReplicaIdentity()`
 - 4 stat cards: Team Members, Total Returns (with "this week" badge), Income Processed (MTD), Avg Processing Time
@@ -156,13 +156,13 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Sidebar: Return Status breakdown (progress bars), Financial Summary
 - **Tech Banner**: Hyperscale Named Replica + NCCI info with live replica identity badges (DatabaseName, Updateability, ServerName)
 
-### 2.13 Branch Manager — Team (~162 lines)
+### 2.13 Branch Manager — Team
 
 - **Data**: `api.getBranchLeaderboard(1)`, `api.getBranchAnalytics(1)`
 - 4 summary cards (Team Members, Total Returns, Avg Processing Time, Income Processed), team member card grid, Top Performer banner
 - Team member stats derived from leaderboard stored procedure
 
-### 2.14 Branch Manager — Performance (~207 lines)
+### 2.14 Branch Manager — Performance
 
 - **Data**: `api.getBranchAnalytics(1)`, `api.getTopBranches(5)`, `api.getBranchLeaderboard(1)` — all with year selector
 - 4 metric cards: Returns, Income Processed, Avg Time, Team Size
@@ -170,7 +170,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Branch Comparison table (current branch highlighted with "Your Branch" badge)
 - Tech Banner explaining NCCI analytics
 
-### 2.15 Executive — Dashboard (~296 lines)
+### 2.15 Executive — Dashboard
 
 - **Data**: `api.getExecutiveKPIs(selectedYear)`, `api.getTopBranches(5, selectedYear)`, `api.getFilingStatusDistribution(selectedYear)`, `api.getReplicaIdentity()`
 - Year selector dropdown — all queries (KPIs, top branches, filing status) filter by selected tax year
@@ -179,7 +179,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Top Branches table: Rank, Name, Location, Returns, Income Processed, Staff, Avg Time — filtered by selected year
 - Tech Banner with live replica identity badges (DB_NAME, Updateability, ServerName)
 
-### 2.16 Executive — Analytics (~236 lines)
+### 2.16 Executive — Analytics
 
 - **Data**: `api.getTopBranches(10, selectedYear)`, `api.getFilingStatusDistribution(selectedYear)`, `api.getReturnsByYear()`
 - Year selector dropdown for branch filtering
@@ -188,14 +188,14 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Year-over-year comparison table with deductions and itemization stats
 - Export button (placeholder, non-functional)
 
-### 2.17 Executive — Filing Analytics (~602 lines)
+### 2.17 Executive — Filing Analytics
 
 - **Data**: `api.getFilingDetailOverview()`, `api.getEFileStatusSummary()`, `api.getW2Summary()`, `api.getForm1099Summary()`, `api.getCapitalGainsSummary()`, `api.getScheduleCSummary()`, `api.getStateTaxSummary()`, `api.getScheduleESummary()`, `api.getScheduleBSummary()`, `api.getDocumentSummary()`
 - 10 simultaneous API queries to filing-detail analytics stored procedures
 - Filing Overview cards, E-File status breakdown, income source summaries (W-2, 1099, Capital Gains, Schedule C/E/B), state tax distribution, document tracking
 - All data is real — powered by the filing details tables populated by `08_generate_filing_details.sql`
 
-### 2.18 DevOps — Dashboard / Metrics (~205 lines)
+### 2.18 DevOps — Dashboard / Metrics
 
 - **Data**: `api.getHyperscaleResourceStatsAll()` with 5s auto-refresh (toggleable)
 - Fetches live DMV data from **3 endpoints in parallel**: primary, HA read replica, and named replica
@@ -203,7 +203,7 @@ Stored in `localStorage` under `zavatax_user`. Selected at login.
 - Manual refresh button + auto-refresh toggle
 - All data is real — sourced from `sys.dm_db_resource_stats` via `GetHyperscaleMetrics` stored procedure
 
-### 2.19 DevOps — Security Dashboard (~578 lines)
+### 2.19 DevOps — Security Dashboard
 
 - **Data**: `api.getSecurityOverview()`, `api.getSecurityRLSDemo()`, `api.getSecurityDDMDemo()`, `api.getSecurityLedger()`, `api.getSecurityClassification()`
 - Demonstrates 4 Azure SQL security features: Row-Level Security (RLS), Dynamic Data Masking (DDM), Ledger tables, Column Classification
@@ -742,7 +742,7 @@ Three connection strings are set as App Settings on the DAB App Service:
 
 ### 10.3 Deployment Script (`deploy.ps1`)
 
-Single PowerShell script (~900 lines) with modular phases:
+Single PowerShell script with modular phases:
 1. **Validation** — Azure CLI, login, prerequisites
 2. **Resource naming** — Deterministic names with unique suffix from resource group hash
 3. **Infrastructure** — Resource group, managed identity, storage account, App Service Plan, SQL Server (Entra-only), Hyperscale DB (zone-redundant, GZRS, 1 HA replica), Named Replica (serverless Gen5 2-24 vCores), Web App, ACR, DAB App Service
@@ -766,16 +766,16 @@ Single PowerShell script (~900 lines) with modular phases:
 
 ### 11.1 Docs
 
-| File | Purpose | Length |
-|------|---------|-------|
-| `docs/ARCHITECTURE_AND_DEMO_DESIGN.md` | Full architecture, persona journeys, demo scenarios, performance targets | ~985 lines |
-| `docs/DATA_STRATEGY_AND_RAG_DESIGN.md` | Data sources, RAG strategy, chunking approach, synthetic data design | ~1452 lines |
-| `docs/HYPERSCALE_READ_SCALE.md` | CQRS connection string strategy, workload routing matrix, DAB config | ~216 lines |
-| `README.md` | Quick start, project structure, tech stack | Root-level |
-| `data-prep/README.md` | Data pipeline instructions | |
-| `database/README.md` | Schema deployment guide | |
-| `load-simulator/README.md` | Load testing guide | |
-| `webapp/README.md` | Frontend development guide | |
+| File | Purpose |
+|------|---------|
+| `docs/ARCHITECTURE_AND_DEMO_DESIGN.md` | Full architecture, persona journeys, demo scenarios, performance targets |
+| `docs/DATA_STRATEGY_AND_RAG_DESIGN.md` | Data sources, RAG strategy, chunking approach, synthetic data design |
+| `docs/HYPERSCALE_READ_SCALE.md` | CQRS connection string strategy, workload routing matrix, DAB config |
+| `README.md` | Quick start, project structure, tech stack |
+| `data-prep/README.md` | Data pipeline instructions |
+| `database/README.md` | Schema deployment guide |
+| `load-simulator/README.md` | Load testing guide |
+| `webapp/README.md` | Frontend development guide |
 
 ### 11.2 Performance Targets
 

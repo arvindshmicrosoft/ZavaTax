@@ -223,6 +223,12 @@ ALTER DATABASE SCOPED CONFIGURATION SET PREVIEW_FEATURES = ON;
 ### Connection refused on localhost:5000
 Ensure DAB is running: `dab start --config dab-config.json`
 
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get involved.
+
+This project has adopted a Code of Conduct based on the [Contributor Covenant](https://www.contributor-covenant.org/). Please see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details. By participating, you are expected to uphold this code.
+
 ## License
 
 This project's source code is released under the [MIT License](LICENSE).
