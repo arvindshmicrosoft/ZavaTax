@@ -337,7 +337,9 @@ BEGIN
         
         IF @RetVal = 0 AND @ResponseJson IS NOT NULL
         BEGIN
-            SELECT @Response = JSON_VALUE(@ResponseJson, '$.result.choices[0].message.content');
+            SELECT @Response = content 
+            FROM OPENJSON(@ResponseJson, '$.result.choices') 
+            WITH (content NVARCHAR(MAX) '$.message.content');
             
             IF @Response IS NOT NULL AND LEN(@Response) > 0
             BEGIN
