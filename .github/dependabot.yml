@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/webapp"
+    target-branch: "publish"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "dependabot"
+    commit-message:
+      prefix: "deps"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "publish"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "dependabot"
