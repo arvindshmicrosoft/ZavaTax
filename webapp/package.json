@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.2.0",
-    "@azure/msal-browser": "^3.10.0",
+    "@azure/msal-browser": "^5.7.0",
     "@azure/msal-react": "^2.0.12",
     "@tailwindcss/typography": "^0.5.19",
     "@tanstack/react-query": "^5.17.0",
